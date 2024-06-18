@@ -40,14 +40,18 @@
 
       <mat-form-field class="form-imput" appearance="outline">
         <mat-label>Confirme sua senha</mat-label>
-        <input type="confirmaPassword" matInput formControlName="confirmaPassword">
-        @if (registerForm.controls['confirmaPassword'].hasError('minlength') && !registerForm.controls['confirmaPassword'].hasError('required')) {
+        <input type="password" type="confirmPassword" matInput formControlName="confirmPassword">
+        @if (registerForm.controls['confirmPassword'].hasError('minlength') && !registerForm.controls['confirmPassword'].hasError('required')) {
           <mat-error>Por favor insira uma senha válida</mat-error>
         }
-        @if (registerForm.controls['confirmaPassword'].hasError('required')) {
+        @if (registerForm.controls['confirmPassword'].hasError('required')) {
           <mat-error>A senha é <strong>obrigatória</strong></mat-error>
         }
+        @if (registerForm.hasError('passwordMismatch') && registerForm.controls['confirmPassword'].valid && registerForm.controls['password'].valid) {
+          <mat-hint style="color: #ffb4ab;">As senhas devem corresponder</mat-hint>
+        }
       </mat-form-field>
+
 
       <div class="button-input">
         <button mat-flat-button class="button-register">Cadastrar-se</button>

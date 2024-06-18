@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
+import { passwordWatchValidator } from '../../shared/password-match.directive';
 
 @Component({
   selector: 'app-register',
@@ -29,9 +30,11 @@ export class RegisterComponent {
       Validators.required,
       Validators.minLength(4),
     ]),
-    confirmaPassword: new FormControl('', [
+    confirmPassword: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
     ]),
+  }, {
+    validators: passwordWatchValidator
   });
 }
