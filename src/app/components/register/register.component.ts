@@ -4,8 +4,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { passwordWatchValidator } from '../../shared/password-match.directive';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../interfaces/auth';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -37,4 +40,23 @@ export class RegisterComponent {
   }, {
     validators: passwordWatchValidator
   });
+
+  constructor(private authService: AuthService, private _snackBar: MatSnackBar, private router: Router) { }
+
+  submitDetails() {
+    const postData = { ...this.registerForm.value }
+    delete postData.confirmPassword;
+    this.authService.registerUser(postData as User).subscribe(res => {
+      console.log(res)
+      this._snackBar.open('sucesso!', undefined, {
+        horizontalPosition: 'center', verticalPosition: 'top', duration: 5000
+      })
+      this.router.navigate(['/login'])
+    }, err =>{
+      console.log(err)
+      this._snackBar.open('erro!', undefined, {
+        horizontalPosition: 'center', verticalPosition: 'top', duration: 5000
+      })
+    })
+  }
 }

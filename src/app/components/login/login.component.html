@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm">
+<form [formGroup]="loginForm" (ngSubmit)="loginUser()">
   <div class="div-container">
     <mat-card appearance="outlined" class="card-container">
       <mat-card-header>
@@ -28,7 +28,7 @@
       </mat-form-field>
 
       <div class="button-input">
-        <button mat-flat-button class="button-login">Entrar</button>
+        <button mat-flat-button class="button-login" type="submit">Entrar</button>
       </div>
 
       <div class="button-input-secundary">
